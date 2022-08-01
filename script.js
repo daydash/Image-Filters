@@ -1,9 +1,10 @@
 var originalImage = null;
 var grayImage = null;
-var reddisImage = null;
+var reddishImage = null;
 var greenishImage = null;
 var blueishImage = null;
 var rainbowImage = null;
+var tricolorImage = null;
 var imgcanvas = document.getElementById("can");
 
 function upload() {
@@ -14,6 +15,7 @@ function upload() {
    greenishImage = new SimpleImage(fileinput);
    blueishImage = new SimpleImage(fileinput);
    rainbowImage = new SimpleImage(fileinput);
+   tricolorImage = new SimpleImage(fileinput);
    originalImage.drawTo(imgcanvas);
 }
 
@@ -195,6 +197,61 @@ function makeRainbow(image) {
   return image;
 }
 
+//to make tricolor
+function makeTricolor(image) {
+  var h = image.getHeight();
+  for (var pixel of image.values()) {
+    var y = pixel.getY();
+    var avg = (pixel.getRed()+pixel.getGreen()+pixel.getBlue())/3;
+    
+    //Orange
+    if (y < h/3) {
+       if (avg < 128) {
+        pixel.setRed(2*avg);
+        pixel.setGreen(0.8*avg);
+        pixel.setBlue(0);
+       }
+       else {
+        pixel.setRed(255);
+        pixel.setGreen(1.2*avg - 51);
+        pixel.setBlue(2*avg - 255);    
+       }
+    }
+
+    //White
+    else if (y < 2*h/3) {
+       if (avg < 128) {
+        pixel.setRed(2*avg);
+        pixel.setGreen(2*avg);
+        pixel.setBlue(2*avg);
+       }
+       else {
+        pixel.setRed(2*avg - 50);
+        pixel.setGreen(2*avg - 50);
+        pixel.setBlue(2*avg - 50);    
+       }
+    }
+
+    //Green
+    else{
+       if (avg < 128) {
+        pixel.setRed(0);
+        pixel.setGreen(2*avg);
+        pixel.setBlue(0);
+       }
+       else {
+        pixel.setRed(2*avg - 255);
+        pixel.setGreen(255);
+        pixel.setBlue(2*avg - 255);    
+       }
+    }
+
+
+  }
+  return image;
+}
+
+
 //to change the image to original image
 function makeOriginal() {
   originalImage.drawTo(imgcanvas);
@@ -202,8 +259,8 @@ function makeOriginal() {
 
 function doReddish() {
   if (imageIsLoaded(reddishImage)) {     
-    makeReddish(reddishImage);	                      
-    reddishImage.drawTo(imgcanvas);	    
+    makeReddish(reddishImage);                        
+    reddishImage.drawTo(imgcanvas);     
   }
 }
 function doGreenish() {
@@ -228,5 +285,11 @@ function doRainbow() {
   if (imageIsLoaded(rainbowImage)) {     
     makeRainbow(rainbowImage);	                      
     rainbowImage.drawTo(imgcanvas);	    
+  }
+}
+function doTricolor() {
+  if (imageIsLoaded(tricolorImage)) {     
+    makeTricolor(tricolorImage);                       
+    tricolorImage.drawTo(imgcanvas);      
   }
 }
