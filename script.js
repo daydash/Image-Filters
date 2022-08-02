@@ -226,9 +226,9 @@ function makeTricolor(image) {
         pixel.setBlue(2*avg);
        }
        else {
-        pixel.setRed(2*avg - 50);
-        pixel.setGreen(2*avg - 50);
-        pixel.setBlue(2*avg - 50);    
+        pixel.setRed(2*avg - 33);
+        pixel.setGreen(2*avg - 33);
+        pixel.setBlue(2*avg - 33);    
        }
     }
 
